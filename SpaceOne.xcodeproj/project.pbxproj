@@ -53,6 +53,9 @@
 		4FE431291F60244D00941EF4 /* SpaceOneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpaceOneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FE4312D1F60244D00941EF4 /* SpaceOneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceOneUITests.swift; sourceTree = "<group>"; };
 		4FE4312F1F60244D00941EF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4FE4313D1F6025AD00941EF4 /* Starfield.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Starfield.sks; sourceTree = "<group>"; };
+		4FE4313E1F6025AD00941EF4 /* Explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Explosion.sks; sourceTree = "<group>"; };
+		4FE4313F1F60327D00941EF4 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +111,9 @@
 				4FE4310B1F60244D00941EF4 /* Actions.sks */,
 				4FE4310D1F60244D00941EF4 /* GameScene.swift */,
 				4FE4310F1F60244D00941EF4 /* GameViewController.swift */,
+				4FE4313E1F6025AD00941EF4 /* Explosion.sks */,
+				4FE4313D1F6025AD00941EF4 /* Starfield.sks */,
+				4FE4313F1F60327D00941EF4 /* spark.png */,
 				4FE431111F60244D00941EF4 /* Main.storyboard */,
 				4FE431141F60244D00941EF4 /* Assets.xcassets */,
 				4FE431161F60244D00941EF4 /* LaunchScreen.storyboard */,
@@ -437,6 +443,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 9NXT87QQZN;
 				INFOPLIST_FILE = SpaceOne/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pari.SpaceOne;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -451,6 +458,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 9NXT87QQZN;
 				INFOPLIST_FILE = SpaceOne/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pari.SpaceOne;
 				PRODUCT_NAME = "$(TARGET_NAME)";
