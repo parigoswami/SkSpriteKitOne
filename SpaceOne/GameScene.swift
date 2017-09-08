@@ -9,43 +9,83 @@
 import SpriteKit
 import GameplayKit
 
-class GameScene: SKScene {
+class GameScene: SKScene,SKPhysicsContactDelegate {
     
-    let myNode = SKSpriteNode(imageNamed: "shuttle")
+    let starField = SKEmitterNode(fileNamed: "MyParticle.sks")
+    let player = SKSpriteNode(imageNamed: "shuttle")
+    var possibleAliens = ["alien","alien2","alien3"]
+    let alienCategory:UInt32 = 0x1 << 1
+    let photonTorpedoCategory:UInt32 = 0x1 << 0
     
     override func didMove(to view: SKView) {
-        
-        myNode.position = CGPoint(x: 0, y: 0)
-        //make shuttle smaller
-        //0.5 = half of this size
-        //its similar to
-        //im not setScale bcs its make to smaller for my shuttle
-//        myNode.setScale(0.5)
-        myNode.setScale(2.5)
-//        let action = SKAction.rotate(byAngle: 2, duration: (2))
-//        let action = SKAction.move(to: CGPoint(x: 100, y: 200), duration: (2))
-        
-            //if i do like
-        myNode.alpha = 0
-        let action = SKAction.fadeIn(withDuration: (3))
-//        myNode.run(action)
-        myNode.run(SKAction.repeatForever(action))
-        self.addChild(myNode);
+        addstarFieldFun()
+        addPlayer()
+        self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
+        self.physicsWorld.contactDelegate = self
+//        addAlien()
+        alienAction()
+    }
+    func addstarFieldFun(){
+        starField?.position = CGPoint(x: 0, y: 1472)
+        starField?.advanceSimulationTime(10)
+        starField?.zPosition = -1
+        self.addChild(starField!)
+    }
+    func addPlayer(){
+        player.position = CGPoint(x: 0, y:  -self.frame.size.height/2 + 50 )
+        player.setScale(2)
+        self.addChild(player)
     }
     
+    func addAlien(){
+        possibleAliens = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: possibleAliens) as! [String]
+        let alien = SKSpriteNode(imageNamed:possibleAliens[2])
+        alien.setScale(1.8)
+        let randomAlienPosition = GKRandomDistribution(lowestValue: 4, highestValue: 414)
+        let position = CGFloat(randomAlienPosition.nextInt())
+        alien.position = CGPoint(x: position, y: self.frame.size.height/2 )
+        alien.physicsBody = SKPhysicsBody(rectangleOf: alien.size)
+        alien.physicsBody?.isDynamic = true
+        
+        alien.physicsBody?.categoryBitMask = alienCategory
+        alien.physicsBody?.contactTestBitMask = photonTorpedoCategory
+        alien.physicsBody?.collisionBitMask = 0
+        self.addChild(alien)
+        
+        let animationDuration : TimeInterval = 2
+        var actionArray = [SKAction]()
+        actionArray.append(SKAction.move(to: CGPoint(x: position, y: -alien.size.height), duration: animationDuration))
+        actionArray.append(SKAction.removeFromParent())
+        alien.run(SKAction.sequence(actionArray))
+    }
     
+    func alienAction(){
+//        let alien = SKSpriteNode(imageNamed: "alien3")
+//        let GKRandomX =  GKRandomDistribution(lowestValue: -Int(self.frame.size.width/2), highestValue: Int(self.frame.size.width/2))
+//        let randomX = CGFloat(GKRandomX.nextInt())
+//        alien.position = CGPoint(x: randomX, y: self.frame.size.height/2 )
+//        self.addChild(alien)
+//
+//        let myAction = SKAction.move(to: CGPoint(x: randomX, y: -self.frame.size.height/2 - 20 ), duration: (2))
+//        alien.run(myAction)
+        let alien = SKSpriteNode(imageNamed: "alien3")
+        let GKRandomX =  GKRandomDistribution(lowestValue: -Int(self.frame.size.width/2), highestValue: Int(self.frame.size.width/2))
+        let randomX = CGFloat(GKRandomX.nextInt())
+        alien.position = CGPoint(x: randomX, y: self.frame.size.height/2 )
+        self.addChild(alien)
+        
+        let myAction = SKAction.move(to: CGPoint(x: randomX, y: -self.frame.size.height/2 - 20 ), duration: (2))
+        alien.run(myAction)
+        
+        
+    }
     
-    //touchesBegan , touchesEnded , touchesMoved - this 3 methods are there
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        for touch in touches {
-//            let location = touch.location(in: self)
-//            let myNode1 = SKSpriteNode(imageNamed: "shuttle")
-//            myNode.position = location
-//            self.addChild(myNode1)
-//        }
-//    }
-    override func update(_ currentTime: TimeInterval) {
-//        myNode.position.y += 1;
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for touch in touches{
+            let location = touch.location(in: self)
+            player.position.x = location.x
+            
+        }
     }
 
 }
